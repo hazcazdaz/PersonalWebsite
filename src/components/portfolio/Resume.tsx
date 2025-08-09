@@ -2,6 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const Resume = () => {
+  const DRIVE_FILE_ID = "1sdXcgjy8If1s0t_mxy0PDMs4rxu1cUeT";
+  const viewUrl = `https://drive.google.com/file/d/${DRIVE_FILE_ID}/view`;
+  const previewUrl = `https://drive.google.com/file/d/${DRIVE_FILE_ID}/preview`;
+  const downloadUrl = `https://drive.google.com/uc?export=download&id=${DRIVE_FILE_ID}`;
+
   return (
     <section id="resume" className="container py-16 md:py-24">
       <header className="mb-6 md:mb-10">
@@ -11,7 +16,7 @@ const Resume = () => {
 
       <div className="flex items-center gap-3 mb-6">
         <Button asChild size="lg">
-          <a href="/resume.pdf" target="_blank" rel="noopener" aria-label="Open resume PDF in a new tab">
+          <a href={viewUrl} target="_blank" rel="noopener" aria-label="Open resume on Google Drive in a new tab">
             View/Download PDF
           </a>
         </Button>
@@ -25,24 +30,14 @@ const Resume = () => {
           <CardTitle className="text-lg">Inline Preview</CardTitle>
         </CardHeader>
         <CardContent>
-          {/* Embedded PDF preview. If the file is not present, users will see the fallback below. */}
-          <object
-            data="/resume.pdf#view=FitH"
-            type="application/pdf"
+          {/* Embedded Google Drive preview */}
+          <iframe
+            src={previewUrl}
             className="w-full h-[70vh] rounded-md border"
-          >
-            <div className="p-6 rounded-md border bg-muted/30 text-muted-foreground">
-              <p className="mb-4">Resume preview unavailable. You can still download it using the button above.</p>
-              <div className="flex flex-wrap gap-3">
-                <Button asChild size="sm">
-                  <a href="/resume.pdf" target="_blank" rel="noopener">Open PDF</a>
-                </Button>
-                <Button asChild variant="outline" size="sm">
-                  <a href="#contact">Contact me</a>
-                </Button>
-              </div>
-            </div>
-          </object>
+            allow="autoplay"
+            title="Resume preview"
+          />
+          <p className="sr-only">If the preview does not load, use the View/Download button above.</p>
         </CardContent>
       </Card>
     </section>
